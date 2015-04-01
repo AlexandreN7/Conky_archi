@@ -1,0 +1,75 @@
+# http://conky.sourceforge.net/
+color1 F9F966
+color2 FF7F50
+color3 87CEFF
+color4 7FFF00
+color5 87CEFA
+default_color White
+default_outline_color Dark Cyan
+default_shade_color Dark Cyan
+alignment middle_right
+background yes
+border_width 1
+cpu_avg_samples 2
+double_buffer yes
+draw_borders no
+draw_graph_borders yes
+draw_outline no
+draw_shades no
+gap_x 25
+gap_y 15 
+minimum_size 330 10
+maximum_width 330
+max_specials 512
+max_user_text 65536
+max_port_monitor_connections 64
+net_avg_samples 2
+no_buffers yes
+out_to_console no
+own_window yes
+# ARGB can be used for real transparency, note that a composite manager is required for real transparency
+own_window_argb_visual true
+# Set the transparency alpha value from 0 to 255
+own_window_argb_value 0
+own_window_type desktop
+own_window_hints undecorated,below,sticky,skip_taskbar,skip_pager
+stippled_borders 2
+update_interval 1
+uppercase no
+use_spacer right
+use_xft yes
+xftalpha 0.8
+xftfont  Bitstream Vera Sans Mono:size=9
+
+TEXT
+$color1$nodename     ${alignc}$sysname $kernel ${alignr}$color${time %l:%M:%p}
+${color1}Uptime:$color $uptime ${color1} Load:$color $loadavg
+${color1}Batterie:$color $battery_percent% ${color1}Temps restant:$color$battery_time 
+${color1}CPU0:$color ${cpu cpu0}% ${cpubar cpu0 5,85}${alignr 10}${color2}${hwmon 0 temp 1}$alignr${color1}${cpugraph cpu0 32,120 104E8B FF7F50 -t}
+${color1}CPU1:$color ${cpu cpu1}% ${cpubar cpu1 5,85}${alignr 10}${color2}${hwmon 2 temp 1}$alignr${color1}${cpugraph cpu1 32,120 104E8B FF7F50 -t}
+${color1}CPU2:$color ${cpu cpu2}% ${cpubar cpu2 5,85}${alignr 10}${color2}${hwmon 3 temp 1}$alignr${color1}${cpugraph cpu2 32,120 104E8B FF7F50 -t}
+${color1}CPU3:$color ${cpu cpu3}% ${cpubar cpu3 5,85}${alignr 10}${color2}${hwmon 1 temp 1}$alignr${color1}${cpugraph cpu3 32,120 104E8B FF7F50 -t}
+${color1}Core temperature: ${color2}${hwmon 0 temp 1}°C
+${color1}RAM Usage:$color2 $mem/$memmax - $memperc% $membar
+${color1}Entropy:$color ${entropy_avail}/${entropy_poolsize} ${entropy_bar}
+
+${color1}Net Down:$color ${downspeed wlp2s0} k/s      ${color1}Net Up:$color ${upspeed wlp2s0} k/s 
+${color1}${downspeedgraph bond0 32,155 104E8B FF7F50 -t} $alignr${color1}${upspeedgraph bond0 32,155 104E8B FF7F50 -t}
+
+${color1}Disk I/O: $color${diskio} $alignr${color1}${diskiograph 32,155 104E8B FF7F50 -t 750}
+${color2}/         ${fs_used /}/ ${fs_size /}${alignr}${fs_bar 5,120 /}
+${color1}/boot     ${fs_used /boot}/ ${fs_size /boot}${alignr}${fs_bar 5,120 /boot}
+${color1}/home     ${fs_used /home}/ ${fs_size /home}${alignr}${fs_bar 5,120 /home}
+
+${color1}Top Processes:     PID    CPU%   MEM%
+$color ${top name 1} ${top pid 1} ${top cpu 1} ${top mem 1}
+$color ${top name 2} ${top pid 2} ${top cpu 2} ${top mem 2}
+$color ${top name 3} ${top pid 3} ${top cpu 3} ${top mem 3}
+$color ${top name 4} ${top pid 4} ${top cpu 4} ${top mem 4}
+$color ${top name 3} ${top pid 5} ${top cpu 5} ${top mem 5}
+
+# Check for new email
+#${color1}harden@gsu.edu:$color     ${texeci 120  imapfilter -c /home/don/.imapfilter/harden.lua | cut -d\  -f5,5} unseen
+
+# Last few syslog messages
+#${execi 30 sudo  /Z/don/bin/conky_messg}
